@@ -4,7 +4,9 @@ My Idea is to experiment with isometric rendering. I want to make a game using i
 
 ```
 This project is finished. It's all about the journey and not the end product 
-but you can download the artifact (demo executable) to check it out yourself. You can dowlnoad the zip archive below and extract the program and the resource images.
+but you can download the artifact (demo executable) to check it out yourself.
+You can dowlnoad the zip archive below and extract the program and the 
+resource images folder.
 ```
 
 **⚠️ Disclaimer: I do not own the rights to the resource images, it's just educational purposes only - use everything at your own risk and judgement**
