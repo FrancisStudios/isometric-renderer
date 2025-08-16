@@ -2,6 +2,18 @@
 
 My Idea is to experiment with isometric rendering. I want to make a game using isometric tiles (or cubes) but I have never experimented with that sort of rendering style, so I figured that I'll try out myself in a simple rendering project. 
 
+```
+This project is finished. It's all about the journey and not the end product 
+but you can download the artifact (demo executable) to check it out yourself. You can dowlnoad the zip archive below and extract the program and the resource images.
+```
+
+**⚠️ Disclaimer: I do not own the rights to the resource images, it's just educational purposes only - use everything at your own risk and judgement**
+
+Windows: [⬇️ download zip](./dist/demo-program-exe.zip) 
+
+Release: 🟢 Available | `0.1 demo` 
+
+
 ### 1) Interlaced rendering. 
 
 I figured out that I have to do interlaced rendering to make the block align well.
