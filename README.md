@@ -9,7 +9,7 @@ You can dowlnoad the zip archive below and extract the program and the
 resource images folder.
 ```
 
-**⚠️ Disclaimer: I do not own the rights to the resource images, it's just educational purposes only - use everything at your own risk and judgement**
+**⚠️ Disclaimer: I do not own the rights to the resource images, it's educational purposes only - use everything at your own risk and judgement**
 
 Windows: [⬇️ download zip](./dist/demo-program-exe.zip) 
 
