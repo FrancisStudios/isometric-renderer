@@ -48,3 +48,30 @@ For VerticalLayer = Canvas.startY To Canvas.startY + TileHeight * 5 Step TileHei
 
     Next
 ```
+
+### 2) Y-correction
+
+It looks all good, when we ajdust every second layer of blocks by `x + 32` or `x + (blockWidht / 2)` but there is an excess vertical spacing between the lines that we do not want to see, so I experimented with y corrections in the same control-flow where the X-correction takes place.
+
+I found a magic number (as a result of experimentation) to be 45 - so now every two lines match up perfeclty.
+
+```basic
+        'INTERLACED RENDERING
+        If VerticalLayerNumber Mod 2 = 0 Then
+            XAddition = (TileWidth / 2)
+            YAddition = -45 'This is the magic number 
+        Else
+            XAddition = 0
+            YAddition = 0
+        End If
+
+        RenderX = HorizontalLayer + XAddition
+        RenderY = VerticalLayer + YAddition
+
+        _PutImage (RenderX, RenderY), tile.img
+```
+
+Now the result looks like so
+
+![image](./docs/interlaced-with-y-correction-1.png)
+
