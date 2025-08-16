@@ -35,38 +35,45 @@ Canvas.startY = 100
 TileWidth = 64
 TileHeight = 64
 
-'INTERLACED RENDERING BECAUSE BLOCKS ARE SPACED WIERDLY
-HorizontalLayerNumber = 0
-VerticalLayerNumber = 0
+'WORLD SIZE
+ROWS = 20
+COLUMNS = 8
 
-For VerticalLayer = Canvas.startY To Canvas.startY + TileHeight * 5 Step TileHeight
+'Z-INDEX IS THE WORLD LAYERS
+For ZIndex = 1 To 2 Step 1
 
-    'SET / RESET LOCATION COUNTERS
-    VerticalLayerNumber = VerticalLayerNumber + 1
+    'INTERLACED RENDERING BECAUSE BLOCKS ARE SPACED WIERDLY
     HorizontalLayerNumber = 0
+    VerticalLayerNumber = 0
 
-    For HorizontalLayer = Canvas.startX To Canvas.startX + TileWidth * 8 Step TileWidth
+    For VerticalLayer = Canvas.startY To Canvas.startY + TileHeight * ROWS Step TileHeight
 
         'SET / RESET LOCATION COUNTERS
-        HorizontalLayerNumber = HorizontalLayerNumber + 1
+        VerticalLayerNumber = VerticalLayerNumber + 1
+        HorizontalLayerNumber = 0
 
-        XAddition = 0
-        YAddition = -(VerticalLayerNumber * 45)
+        For HorizontalLayer = Canvas.startX To Canvas.startX + TileWidth * COLUMNS Step TileWidth
 
-        'INTERLACED RENDERING
-        If VerticalLayerNumber Mod 2 = 0 Then
-            XAddition = (TileWidth / 2)
-        Else
+            'SET / RESET LOCATION COUNTERS
+            HorizontalLayerNumber = HorizontalLayerNumber + 1
+
             XAddition = 0
-        End If
+            YAddition = -(VerticalLayerNumber * 45)
 
-        RenderX = HorizontalLayer + XAddition
-        RenderY = VerticalLayer + YAddition
+            'INTERLACED RENDERING
+            If VerticalLayerNumber Mod 2 = 0 Then
+                XAddition = (TileWidth / 2)
+            Else
+                XAddition = 0
+            End If
 
-        _PutImage (RenderX, RenderY), tile.img
+            RenderX = HorizontalLayer + XAddition
+            RenderY = VerticalLayer + YAddition
 
+            _PutImage (RenderX, RenderY), tile.img
+
+        Next
 
     Next
-
 Next
 

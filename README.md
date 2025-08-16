@@ -119,3 +119,49 @@ For VerticalLayer = Canvas.startY To Canvas.startY + TileHeight * 5 Step TileHei
 
 Next
 ```
+
+### 3) Multiple layers
+
+Now that we can render one layer perfectly, I would like to render multiple layers
+
+For that I extend the rendering loop with a ZIndex counter and based on that, we would like to calculate the second layer
+
+```basic
+'Z-INDEX IS THE WORLD LAYERS
+For ZIndex = 1 To 2 Step 1
+
+    'INTERLACED RENDERING BECAUSE BLOCKS ARE SPACED WIERDLY
+    HorizontalLayerNumber = 0
+    VerticalLayerNumber = 0
+
+    For VerticalLayer = Canvas.startY To Canvas.startY + TileHeight * ROWS Step TileHeight
+
+        'SET / RESET LOCATION COUNTERS
+        VerticalLayerNumber = VerticalLayerNumber + 1
+        HorizontalLayerNumber = 0
+
+        For HorizontalLayer = Canvas.startX To Canvas.startX + TileWidth * COLUMNS Step TileWidth
+
+            'SET / RESET LOCATION COUNTERS
+            HorizontalLayerNumber = HorizontalLayerNumber + 1
+
+            XAddition = 0
+            YAddition = -(VerticalLayerNumber * 45)
+
+            'INTERLACED RENDERING
+            If VerticalLayerNumber Mod 2 = 0 Then
+                XAddition = (TileWidth / 2)
+            Else
+                XAddition = 0
+            End If
+
+            RenderX = HorizontalLayer + XAddition
+            RenderY = VerticalLayer + YAddition
+
+            _PutImage (RenderX, RenderY), tile.img
+
+        Next
+
+    Next
+Next
+```
