@@ -51,15 +51,13 @@ For VerticalLayer = Canvas.startY To Canvas.startY + TileHeight * 5 Step TileHei
         HorizontalLayerNumber = HorizontalLayerNumber + 1
 
         XAddition = 0
-        YAddition = 0
+        YAddition = -(VerticalLayerNumber * 45)
 
         'INTERLACED RENDERING
         If VerticalLayerNumber Mod 2 = 0 Then
             XAddition = (TileWidth / 2)
-            YAddition = -45
         Else
             XAddition = 0
-            YAddition = 0
         End If
 
         RenderX = HorizontalLayer + XAddition
