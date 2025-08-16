@@ -19,5 +19,27 @@ tile.img = _LoadImage("res/base-block.png", 32)
 title.x = 10
 title.y = 10
 
-_PutImage (tile.x, tile.y), tile.img
+'THIS FOR GAME RENDERING AREA
+Type DrawingArea
+    startx As Integer
+    starty As Integer
+End Type
+
+
+'INIT DRAWING AREA CANVAS
+Dim Canvas As DrawingArea
+Canvas.startx = 100
+Canvas.starty = 100
+
+'REMOVE MAGIC NUMBERS
+TileWidth = 64
+TileHeight = 64
+
+For HorizontalLayer = Canvas.starty To Canvas.starty + TileHeight * 8 Step TileHeight
+
+    For VerticalLayer = Canvas.startx To Canvas.startx + TileWidth * 5 Step TileWidth
+        _PutImage (HorizontalLayer, VerticalLayer), tile.img
+    Next
+
+Next
 
