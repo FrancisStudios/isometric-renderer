@@ -128,7 +128,7 @@ For that I extend the rendering loop with a ZIndex counter and based on that, we
 
 ```basic
 'Z-INDEX IS THE WORLD LAYERS
-For ZIndex = 1 To 2 Step 1
+For ZIndex = 1 To 2 Step 1 'This is the new dimension
 
     'INTERLACED RENDERING BECAUSE BLOCKS ARE SPACED WIERDLY
     HorizontalLayerNumber = 0
@@ -165,3 +165,54 @@ For ZIndex = 1 To 2 Step 1
     Next
 Next
 ```
+
+After I figured, that the next layer is basically a block with the same `x-coordinate` just slid upwards on the `y-axis` a little. 
+
+So I appended a layer calculation like this 
+
+```basic
+'Z-INDEX IS THE WORLD LAYERS
+For ZIndex = 0 To 1 Step 1
+
+    'INTERLACED RENDERING BECAUSE BLOCKS ARE SPACED WIERDLY
+    HorizontalLayerNumber = 0
+    VerticalLayerNumber = 0
+
+    For VerticalLayer = Canvas.startY To Canvas.startY + TileHeight * ROWS Step TileHeight
+
+        'SET / RESET LOCATION COUNTERS
+        VerticalLayerNumber = VerticalLayerNumber + 1
+        HorizontalLayerNumber = 0
+
+        For HorizontalLayer = Canvas.startX To Canvas.startX + TileWidth * COLUMNS Step TileWidth
+
+            'SET / RESET LOCATION COUNTERS
+            HorizontalLayerNumber = HorizontalLayerNumber + 1
+
+            XAddition = 0
+            YAddition = -(VerticalLayerNumber * 45)
+            LayerAdjustment = ZIndex * TileHeight / 2 '<< Layer adjustmet addition (Z-index)
+
+            'INTERLACED RENDERING
+            If VerticalLayerNumber Mod 2 = 0 Then
+                XAddition = (TileWidth / 2)
+            Else
+                XAddition = 0
+            End If
+
+            RenderX = HorizontalLayer + XAddition
+            RenderY = VerticalLayer + YAddition - LayerAdjustment '<< Subtraction from the Y coordinate when rendering
+
+            _PutImage (RenderX, RenderY), tile.img
+
+        Next
+    Next
+Next
+```
+
+Now I can render any amount of layers on top of each other thanks to this simple calculation. 
+
+![image](./docs/second-layer.png)
+
+So to sum up **i just had to subtract the (block height/2) from the render Y coordinates** and that results rendering the next layer.
+

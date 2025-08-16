@@ -36,11 +36,11 @@ TileWidth = 64
 TileHeight = 64
 
 'WORLD SIZE
-ROWS = 20
+ROWS = 18
 COLUMNS = 8
 
 'Z-INDEX IS THE WORLD LAYERS
-For ZIndex = 1 To 2 Step 1
+For ZIndex = 0 To 1 Step 1
 
     'INTERLACED RENDERING BECAUSE BLOCKS ARE SPACED WIERDLY
     HorizontalLayerNumber = 0
@@ -59,6 +59,7 @@ For ZIndex = 1 To 2 Step 1
 
             XAddition = 0
             YAddition = -(VerticalLayerNumber * 45)
+            LayerAdjustment = ZIndex * TileHeight / 2 'Layer adjustmet addition (Z-index)
 
             'INTERLACED RENDERING
             If VerticalLayerNumber Mod 2 = 0 Then
@@ -68,12 +69,11 @@ For ZIndex = 1 To 2 Step 1
             End If
 
             RenderX = HorizontalLayer + XAddition
-            RenderY = VerticalLayer + YAddition
+            RenderY = VerticalLayer + YAddition - LayerAdjustment
 
             _PutImage (RenderX, RenderY), tile.img
 
-        Next
-
-    Next
-Next
+        Next 'HORIZONTAL - X
+    Next 'VERTICAL - Y
+Next 'HEIGHT - Z
 
