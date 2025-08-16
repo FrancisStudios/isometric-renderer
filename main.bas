@@ -58,7 +58,7 @@ For VerticalLayer = Canvas.starty To Canvas.starty + TileHeight * 5 Step TileHei
 
         'INTERLACED RENDERING
         If VerticalLayerNumber Mod 2 = 0 Then
-            XAddition = 32
+            XAddition = 0
         Else
             XAddition = 0
         End If
@@ -68,7 +68,6 @@ For VerticalLayer = Canvas.starty To Canvas.starty + TileHeight * 5 Step TileHei
 
         _PutImage (RenderX, RenderY), tile.img
 
-        Sleep 1
 
     Next
 
