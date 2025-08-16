@@ -35,10 +35,41 @@ Canvas.starty = 100
 TileWidth = 64
 TileHeight = 64
 
-For HorizontalLayer = Canvas.starty To Canvas.starty + TileHeight * 8 Step TileHeight
+'INTERLACED RENDERING BECAUSE BLOCKS ARE SPACED WIERDLY
+IsEvenLine = 0 'as false 1 = true (no booleans in basic)
+IsEvenBlock = 0 'as false 1 = true
 
-    For VerticalLayer = Canvas.startx To Canvas.startx + TileWidth * 5 Step TileWidth
-        _PutImage (HorizontalLayer, VerticalLayer), tile.img
+HorizontalLayerNumber = 0
+VerticalLayerNumber = 0
+
+For VerticalLayer = Canvas.starty To Canvas.starty + TileHeight * 5 Step TileHeight
+
+    'SET / RESET LOCATION COUNTERS
+    VerticalLayerNumber = VerticalLayerNumber + 1
+    HorizontalLayerNumber = 0
+
+    For HorizontalLayer = Canvas.startx To Canvas.startx + TileWidth * 8 Step TileWidth
+
+        'SET / RESET LOCATION COUNTERS
+        HorizontalLayerNumber = HorizontalLayerNumber + 1
+
+        XAddition = 0
+        YAddition = 0
+
+        'INTERLACED RENDERING
+        If VerticalLayerNumber Mod 2 = 0 Then
+            XAddition = 32
+        Else
+            XAddition = 0
+        End If
+
+        RenderX = HorizontalLayer + XAddition
+        RenderY = VerticalLayer + YAddition
+
+        _PutImage (RenderX, RenderY), tile.img
+
+        Sleep 1
+
     Next
 
 Next
