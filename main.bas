@@ -19,6 +19,10 @@ tile.img = _LoadImage("res/base-block.png", 32)
 title.x = 10
 title.y = 10
 
+'BONUS CONTENT IMAGES
+flower = _LoadImage("res/flower.png", 32)
+air = _LoadImage("res/air.png", 32)
+
 'THIS FOR GAME RENDERING AREA
 Type DrawingArea
     startX As Integer
@@ -59,7 +63,7 @@ For ZIndex = 0 To 1 Step 1
 
             XAddition = 0
             YAddition = -(VerticalLayerNumber * 45)
-            LayerAdjustment = ZIndex * TileHeight / 2 'Layer adjustmet addition (Z-index)
+            LayerAdjustment = (ZIndex * 28)
 
             'INTERLACED RENDERING
             If VerticalLayerNumber Mod 2 = 0 Then
@@ -68,10 +72,25 @@ For ZIndex = 0 To 1 Step 1
                 XAddition = 0
             End If
 
+            'RENDER COORDINATE MATH
             RenderX = HorizontalLayer + XAddition
             RenderY = VerticalLayer + YAddition - LayerAdjustment
 
-            _PutImage (RenderX, RenderY), tile.img
+            'SECOND LAYER CONTENTS (BONUS CONTENT)
+            Dim RenderIMG As Long
+            If ZIndex = 1 And RenderX Mod 5 = 0 And RenderY Mod 3 = 0 Then
+                RenderIMG = flower
+            Else
+                RenderIMG = air
+            End If
+
+            If ZIndex = 1 And RenderX Mod 3 = 0 And RenderY Mod 5 = 0 Then RenderIMG = tile.img
+
+
+            If ZIndex = 0 Then RenderIMG = tile.img
+
+            'RENDERING
+            _PutImage (RenderX, RenderY), RenderIMG
 
         Next 'HORIZONTAL - X
     Next 'VERTICAL - Y

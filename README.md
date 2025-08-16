@@ -216,3 +216,8 @@ Now I can render any amount of layers on top of each other thanks to this simple
 
 So to sum up **i just had to subtract the (block height/2) from the render Y coordinates** and that results rendering the next layer.
 
+### 4) Bonus content
+
+I sketched up a simple rule in the rendering to display something interesting on layer two, so we have minecraft flowers and blocks scattered on the second layer. 
+
+![image](./docs/bonus-content.png)
